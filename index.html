@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The easiest way to create collages for Instagram .">
+  <meta name="keywords" content="instagram, collage, photo editor, image grid">
+  <meta name="author" content="Your Name">
+
+  <meta property="og:title" content="ADA PROJECT ">
+  <meta property="og:description" content="The easiest way to create collages for Instagram.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="ADA PROJECT" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+  <title>ADA PROJECT - Create collages for Instagram</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- LEFT PANEL: Tools & Settings -->
+    <div class="left-panel">
+      <div class="app-header" style="margin-bottom: 24px;">
+        <h1 style="font-size: 20px;">ADA PROJECT</h1>
+        <p style="font-size: 12px;">Instagram collages</p>
+      </div>
+
+      <div class="panel-section" style="margin-bottom: 16px;">
+        <div class="panel-section-title">📐 Canvas Size</div>
+        <select id="sizeSelect" class="size-select" onchange="handleSizeChange()"
+          style="width: 100%; padding: 10px; font-size: 13px;">
+          <option value="portrait">📱 Portrait (1080x1350)</option>
+          <option value="square">⬛ Square (1080x1080)</option>
+          <option value="landscape">🖼️ Landscape (1080x566)</option>
+          <option value="story">📲 Story (1080x1920)</option>
+          <option value="youtube">🎬 YouTube Thumbnail (1280x720)</option>
+        </select>
+      </div>
+
+      <div class="panel-section" style="margin-bottom: 16px;">
+        <div class="panel-section-title">📸 Images</div>
+        <div class="dropzone" id="dropzone">
+          <p style="margin: 0; font-size: 12px;">📸 Drop or click to upload</p>
+          <input type="file" id="fileInput" multiple accept="image/*" style="display: none">
+        </div>
+        <div id="imageList" style="margin-top: 12px;"></div>
+      </div>
+
+      <button class="action-btn clear" onclick="clearAll()" style="width: 100%; padding: 14px; font-size: 14px;">🗑️
+        Clear All</button>
+    </div>
+
+    <!-- CENTER PANEL: Canvas -->
+    <div class="center-panel">
+      <div class="canvas-container">
+        <canvas id="collageCanvas"></canvas>
+      </div>
+      <div class="slides-nav" id="slidesNav">
+        <!-- Slides will be injected here -->
+        <div class="add-slide-btn" onclick="addSlide()" title="Add New Slide">+</div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: Export & Quality -->
+    <div class="right-panel">
+      <div class="output-stats-section" id="outputStatsSection" style="margin: 0;">
+        <div class="output-stats-content">
+          <div class="output-stats-icon">⬇️</div>
+          <div class="output-stats-details">
+            <div class="output-stats-title">Download Specifications</div>
+            <div class="output-stats-grid" id="outputStatsGrid"></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 9px; padding-top: 9px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="layout-controls">
+          <button class="layout-btn" onclick="setLayout('vertical')">Horizontal</button>
+          <button class="layout-btn" onclick="setLayout('horizontal')">Vertical</button>
+          <button class="layout-btn" onclick="setLayout('grid')">Grid</button>
+          <button class="layout-btn" onclick="setLayout('mixed')">Mixed</button>
+          <button class="layout-btn" onclick="setLayout('divide_conquer')">Divide & Conquer</button>
+        </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <button class="action-btn download" style="width: 100%; padding: 16px; font-size: 15px;"
+              onclick="downloadAtCurrentQuality()">
+              🚀 Download Slide (Manual Quality)
+            </button>
+
+            <button class="action-btn" id="downloadAllBtn"
+              style="width: 100%; padding: 16px; font-size: 15px; background: var(--text-primary); border-color: var(--text-primary); color: white;"
+              onclick="downloadAllSlides()">
+              📦 Download All Slides (ZIP)
+            </button>
+
+            <button class="action-btn" id="optimizeBtn"
+              style="width: 100%; padding: 16px; font-size: 15px; background: var(--text-primary); border-color: var(--text-primary);"
+              onclick="optimizeForInstagram()">
+              ✨ Auto-Optimize for Instagram (<1MB) </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
